@@ -1,5 +1,4 @@
 import CustomButton from "./CustomButton";
-import { View } from "react-native";
 
 const SocialSignInButtons = () => {
     const onSignInFacebook = () => {

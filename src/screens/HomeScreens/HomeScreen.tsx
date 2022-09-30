@@ -6,11 +6,16 @@ const HomeScreen: React.FC = () => {
         Auth.signOut();
     };
 
+    const deleteAccount = (): void => {
+        Auth.deleteUser();
+    };
+
     return (
         <View>
             <Text>Welcome to the Providence of Media</Text>
 
             <Button title="Sign Out" onPress={signOut} />
+            <Button title="Delete Account" onPress={deleteAccount} />
         </View>
     );
 };

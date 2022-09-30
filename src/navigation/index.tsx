@@ -9,7 +9,7 @@ import NewPassword from "../screens/AuthScreens/NewPasswordScreen";
 import HomeScreen from "../screens/HomeScreens/HomeScreen";
 import { Auth, Hub } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
-import { ActivityIndicator, View, Text } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 
 export type NativeStackParamList = {
     Home: undefined;
