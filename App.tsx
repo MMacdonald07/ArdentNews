@@ -1,19 +1,19 @@
-import { SafeAreaView } from "react-navigation";
 import { StatusBar as ExpoBar } from "expo-status-bar";
-import Navigation from "./src/navigation";
 import { Platform, StatusBar, StyleSheet } from "react-native";
 import { Amplify } from "aws-amplify";
 
 import awsconfig from "./src/aws-exports";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import Navigation from "./src/navigation";
 
 Amplify.configure(awsconfig);
 
 function App() {
     return (
-        <SafeAreaView style={styles.root}>
-            <ExpoBar style="auto" />
+        <SafeAreaProvider style={styles.root}>
+            <ExpoBar style="light" />
             <Navigation />
-        </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
 

@@ -3,11 +3,15 @@ import { Text, View, Button } from "react-native";
 
 const HomeScreen: React.FC = () => {
     const signOut = (): void => {
-        Auth.signOut();
+        setTimeout(() => {
+            Auth.signOut();
+        }, 100);
     };
 
     const deleteAccount = (): void => {
-        Auth.deleteUser();
+        setTimeout(() => {
+            Auth.deleteUser();
+        }, 100);
     };
 
     return (

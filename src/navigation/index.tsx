@@ -69,7 +69,12 @@ const Navigation = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    animation: "slide_from_right"
+                }}
+            >
                 {user ? (
                     <Stack.Screen name="Home" component={HomeScreen} />
                 ) : (

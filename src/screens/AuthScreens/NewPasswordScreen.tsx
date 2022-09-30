@@ -44,7 +44,7 @@ const NewPasswordScreen: React.FC = () => {
     };
 
     const onSignInPressed = (): void => {
-        navigation.navigate("SignIn");
+        navigation.popToTop();
     };
 
     return (

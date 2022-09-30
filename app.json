@@ -6,11 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#F9FBFC",
+    "backgroundColor": "#c5e0dd",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/splashpage.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#c5e0dd"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
