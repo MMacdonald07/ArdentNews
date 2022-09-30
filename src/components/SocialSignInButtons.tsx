@@ -1,12 +1,53 @@
 import CustomButton from "./CustomButton";
+import { Alert, Linking, Platform } from "react-native";
+import { Auth, Amplify } from "aws-amplify";
+import { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+import {
+    WebBrowserAuthSessionResult,
+    openAuthSessionAsync,
+    dismissBrowser
+} from "expo-web-browser";
+import awsconfig from "../../src/aws-exports";
 
-const SocialSignInButtons = () => {
-    const onSignInFacebook = () => {
-        console.warn("Sign in with Facebook");
+const urlOpener = async (url: string, redirectUrl: string) => {
+    const response: WebBrowserAuthSessionResult = await openAuthSessionAsync(
+        url,
+        redirectUrl
+    );
+
+    if (response.type === "success" && Platform.OS === "ios") {
+        dismissBrowser();
+        return Linking.openURL(response.url);
+    }
+};
+
+Amplify.configure({
+    ...awsconfig,
+    oauth: {
+        ...awsconfig.oauth,
+        urlOpener
+    }
+});
+
+const SocialSignInButtons: React.FC = () => {
+    const onSignInFacebook = async (): Promise<void> => {
+        try {
+            await Auth.federatedSignIn({
+                provider: CognitoHostedUIIdentityProvider.Facebook
+            });
+        } catch (e: any) {
+            Alert.alert("Oops", e.message);
+        }
     };
 
-    const onSignInGoogle = () => {
-        console.warn("Sign in with Google");
+    const onSignInGoogle = async (): Promise<void> => {
+        try {
+            await Auth.federatedSignIn({
+                provider: CognitoHostedUIIdentityProvider.Google
+            });
+        } catch (e: any) {
+            Alert.alert("Oops", e.message);
+        }
     };
 
     const onSignInApple = () => {

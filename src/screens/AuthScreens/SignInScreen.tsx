@@ -43,8 +43,7 @@ const SignInScreen: React.FC = () => {
 
         setLoading(true);
         try {
-            const response = await Auth.signIn(username, password);
-            console.log(response);
+            await Auth.signIn(username, password);
         } catch (e: any) {
             Alert.alert("Oops", e.message);
         }

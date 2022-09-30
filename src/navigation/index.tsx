@@ -22,7 +22,7 @@ export type NativeStackParamList = {
 
 const Stack = createNativeStackNavigator<NativeStackParamList>();
 
-const Navigation = () => {
+const Navigation: React.FC = () => {
     const [user, setUser] = useState<CognitoUser | undefined | null>(undefined);
 
     useEffect(() => {
