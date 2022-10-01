@@ -6,6 +6,7 @@ import { NativeStackParamList } from "../../navigation/index";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import { useForm } from "react-hook-form";
+import { useToast, ToastType } from "react-native-toast-notifications";
 
 type SignInProp = StackNavigationProp<NativeStackParamList, "SignIn">;
 
@@ -27,6 +28,7 @@ const ConfirmEmailScreen: React.FC = () => {
         defaultValues: { username: route?.params?.username }
     });
     const username: string = watch("username");
+    const toast: ToastType = useToast();
 
     const onConfirmPressed = async ({
         username,
@@ -36,7 +38,9 @@ const ConfirmEmailScreen: React.FC = () => {
             await Auth.confirmSignUp(username, code);
             navigation.navigate("SignIn");
         } catch (e: any) {
-            Alert.alert("Oops", e.message);
+            toast.show(e.message, {
+                type: "error"
+            });
         }
     };
 
@@ -45,7 +49,9 @@ const ConfirmEmailScreen: React.FC = () => {
             await Auth.resendSignUp(username);
             Alert.alert("Success", "Code was resent to your email");
         } catch (e: any) {
-            Alert.alert("Oops", e.message);
+            toast.show(e.message, {
+                type: "error"
+            });
         }
     };
 
@@ -102,7 +108,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: "#051c60",
+        color: "#3700b3",
         margin: 10
     }
 });

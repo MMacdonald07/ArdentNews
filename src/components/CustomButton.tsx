@@ -1,3 +1,5 @@
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View } from "react-native";
 import {
     GestureResponderEvent,
     Pressable,
@@ -13,6 +15,7 @@ type ButtonProps = {
     type?: string;
     bgColor?: string;
     fgColor?: string;
+    icon?: any;
 };
 
 const CustomButton = ({
@@ -20,7 +23,8 @@ const CustomButton = ({
     text,
     type = "primary",
     bgColor,
-    fgColor
+    fgColor,
+    icon
 }: ButtonProps) => {
     return (
         <Pressable
@@ -31,15 +35,47 @@ const CustomButton = ({
             ]}
             onPress={onPress}
         >
-            <Text
-                style={[
-                    styles.text,
-                    styles[`text_${type}`],
-                    fgColor ? { color: fgColor } : {}
-                ]}
-            >
-                {text}
-            </Text>
+            {icon ? (
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flex-start"
+                    }}
+                >
+                    <MaterialCommunityIcons
+                        name={icon}
+                        size={18}
+                        color={fgColor || "#000"}
+                    />
+                    <Text
+                        style={[
+                            styles.text,
+                            styles[`text_${type}`],
+                            fgColor ? { color: fgColor } : {},
+                            {
+                                flexGrow: 1,
+                                textAlign: "center",
+                                marginHorizontal: 15
+                            }
+                        ]}
+                    >
+                        {text}
+                    </Text>
+                </View>
+            ) : (
+                <>
+                    <Text
+                        style={[
+                            styles.text,
+                            styles[`text_${type}`],
+                            fgColor ? { color: fgColor } : {}
+                        ]}
+                    >
+                        {text}
+                    </Text>
+                </>
+            )}
         </Pressable>
     );
 };
@@ -47,16 +83,17 @@ const CustomButton = ({
 const styles: any = StyleSheet.create({
     container: {
         width: "100%",
+        flexDirection: "row",
         padding: 15,
         marginVertical: 5,
-        alignItems: "center",
-        borderRadius: 5
+        borderRadius: 5,
+        justifyContent: "center"
     },
     container_primary: {
-        backgroundColor: "#3B71F3"
+        backgroundColor: "#3700b3"
     },
     container_secondary: {
-        borderColor: "#3b71f3",
+        borderColor: "#3700b3",
         borderWidth: 2
     },
     container_tertiary: {},
@@ -65,10 +102,10 @@ const styles: any = StyleSheet.create({
         color: "#fff"
     },
     text_secondary: {
-        color: "#3b71f3"
+        color: "#3700b3"
     },
     text_tertiary: {
-        color: "gray"
+        color: "#018786"
     }
 });
 

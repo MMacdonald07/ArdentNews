@@ -6,6 +6,7 @@ import { NativeStackParamList } from "../../navigation/index";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import { useForm } from "react-hook-form";
+import { ToastType, useToast } from "react-native-toast-notifications";
 
 type SignInProp = StackNavigationProp<NativeStackParamList, "SignIn">;
 
@@ -29,6 +30,7 @@ const NewPasswordScreen: React.FC = () => {
         defaultValues: { username: route?.params?.username }
     });
     const password: string = watch("password");
+    const toast: ToastType = useToast();
 
     const onSubmitPressed = async ({
         username,
@@ -39,7 +41,9 @@ const NewPasswordScreen: React.FC = () => {
             await Auth.forgotPasswordSubmit(username, code, password);
             navigation.navigate("SignIn");
         } catch (e: any) {
-            Alert.alert("Oops", e.message);
+            toast.show(e.message, {
+                type: "error"
+            });
         }
     };
 
@@ -116,7 +120,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: "#051c60",
+        color: "#3700b3",
         margin: 10
     }
 });

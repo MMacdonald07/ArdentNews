@@ -8,6 +8,7 @@ import {
     dismissBrowser
 } from "expo-web-browser";
 import awsconfig from "../../src/aws-exports";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 const urlOpener = async (url: string, redirectUrl: string) => {
     const response: WebBrowserAuthSessionResult = await openAuthSessionAsync(
@@ -61,18 +62,21 @@ const SocialSignInButtons: React.FC = () => {
                 onPress={onSignInFacebook}
                 bgColor="#e7eaf4"
                 fgColor="#4765a9"
+                icon="facebook"
             />
             <CustomButton
                 text="Sign In With Google"
                 onPress={onSignInGoogle}
                 bgColor="#fae9cf"
                 fgColor="#dd4d44"
+                icon="google"
             />
             <CustomButton
                 text="Sign In With Apple"
                 onPress={onSignInApple}
                 bgColor="#e3e3e3"
                 fgColor="#363636"
+                icon="apple"
             />
         </>
     );

@@ -1,4 +1,4 @@
-import { Auth } from "aws-amplify";
+import { Auth, toast } from "aws-amplify";
 import { Alert, View, ScrollView, StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackParamList } from "../../navigation/index";
@@ -7,6 +7,7 @@ import CustomButton from "../../components/CustomButton";
 import CustomInput from "../../components/CustomInput";
 import { useForm } from "react-hook-form";
 import SocialSignInButtons from "../../components/SocialSignInButtons";
+import { ToastType, useToast } from "react-native-toast-notifications";
 
 type ConfirmEmailSignInProp = StackNavigationProp<
     NativeStackParamList,
@@ -28,6 +29,7 @@ const SignUpScreen: React.FC = () => {
     const navigation = useNavigation<ConfirmEmailSignInProp>();
     const { control, handleSubmit, watch } = useForm<FormValues>();
     const password: string = watch("password");
+    const toast: ToastType = useToast();
 
     const onRegisterPressed = async ({
         username,
@@ -42,7 +44,9 @@ const SignUpScreen: React.FC = () => {
             });
             navigation.navigate("ConfirmEmail", { username });
         } catch (e: any) {
-            Alert.alert("Oops", e.message);
+            toast.show(e.message, {
+                type: "error"
+            });
         }
     };
 
@@ -143,7 +147,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: "bold",
-        color: "#051c60",
+        color: "#3700b3",
         margin: 10
     }
 });

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Auth } from "aws-amplify";
 import {
-    Alert,
     Image,
     ScrollView,
     StyleSheet,
@@ -15,6 +14,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { NativeStackParamList } from "../../navigation/index";
 import SocialSignInButtons from "../../components/SocialSignInButtons";
 import { useForm } from "react-hook-form";
+import { useToast, ToastType } from "react-native-toast-notifications";
 
 type SignUpForgotPasswordProp = StackNavigationProp<
     NativeStackParamList,
@@ -32,6 +32,7 @@ const SignInScreen: React.FC = () => {
     const { height }: { height: number } = useWindowDimensions();
     const [loading, setLoading] = useState<boolean>(false);
     const { control, handleSubmit } = useForm<FormValues>();
+    const toast: ToastType = useToast();
 
     const onSignInPressed = async ({
         username,
@@ -45,7 +46,9 @@ const SignInScreen: React.FC = () => {
         try {
             await Auth.signIn(username, password);
         } catch (e: any) {
-            Alert.alert("Oops", e.message);
+            toast.show(e.message, {
+                type: "error"
+            });
         }
         setLoading(false);
     };
