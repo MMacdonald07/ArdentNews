@@ -1,6 +1,7 @@
 import { useEffect, useState, createContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ConfirmEmail from "../screens/AuthScreens/ConfirmEmailScreen";
 import SignInScreen from "../screens/AuthScreens/SignInScreen";
 import SignUpScreen from "../screens/AuthScreens/SignUpScreen";
@@ -11,7 +12,11 @@ import { Auth, Hub } from "aws-amplify";
 import { CognitoUser } from "@aws-amplify/auth";
 import { ActivityIndicator, View, StyleSheet, Text } from "react-native";
 import { ToastProvider } from "react-native-toast-notifications";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import BusinessScreen from "../screens/HomeScreens/BusinessScreen";
+import HealthScreen from "../screens/HomeScreens/HealthScreen";
+import SportScreen from "../screens/HomeScreens/SportScreen";
+import TechScreen from "../screens/HomeScreens/TechScreen";
 
 export type NativeStackParamList = {
     Home: undefined;
@@ -22,9 +27,20 @@ export type NativeStackParamList = {
     NewPassword: { username: string };
 };
 
+export type BottomTabParamList = {
+    Home: undefined;
+    Business: undefined;
+    Health: undefined;
+    Sports: undefined;
+    Tech: undefined;
+};
+
 const Stack = createNativeStackNavigator<NativeStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 export const UserContext = createContext<CognitoUser | undefined>(undefined);
+
+// For dark/light themes: https://reactnavigation.org/docs/themes/
 
 const Navigation: React.FC = () => {
     const [user, setUser] = useState<CognitoUser | undefined | null>(undefined);
@@ -102,7 +118,68 @@ const Navigation: React.FC = () => {
                         }}
                     >
                         {user ? (
-                            <Stack.Screen name="Home" component={HomeScreen} />
+                            <Tab.Navigator>
+                                <Tab.Screen
+                                    name="Home"
+                                    component={HomeScreen}
+                                    options={{
+                                        tabBarIcon: (props) => (
+                                            <Feather
+                                                name="home"
+                                                color={props.color}
+                                            />
+                                        )
+                                    }}
+                                />
+                                <Tab.Screen
+                                    name="Business"
+                                    component={BusinessScreen}
+                                    options={{
+                                        tabBarIcon: (props) => (
+                                            <Feather
+                                                name="dollar-sign"
+                                                color={props.color}
+                                            />
+                                        )
+                                    }}
+                                />
+                                <Tab.Screen
+                                    name="Health"
+                                    component={HealthScreen}
+                                    options={{
+                                        tabBarIcon: (props) => (
+                                            <Feather
+                                                name="heart"
+                                                color={props.color}
+                                            />
+                                        )
+                                    }}
+                                />
+                                <Tab.Screen
+                                    name="Sports"
+                                    component={SportScreen}
+                                    options={{
+                                        tabBarIcon: (props) => (
+                                            <Ionicons
+                                                name="tennisball-outline"
+                                                color={props.color}
+                                            />
+                                        )
+                                    }}
+                                />
+                                <Tab.Screen
+                                    name="Tech"
+                                    component={TechScreen}
+                                    options={{
+                                        tabBarIcon: (props) => (
+                                            <Ionicons
+                                                name="hardware-chip-outline"
+                                                color={props.color}
+                                            />
+                                        )
+                                    }}
+                                />
+                            </Tab.Navigator>
                         ) : (
                             <>
                                 <Stack.Screen
